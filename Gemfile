@@ -364,4 +364,8 @@ group :development do
 
   # TomDoc for YARD (http://rubyworks.github.com/yard-tomdoc)
   gem "yard-tomdoc"
+
+  # CUSTOMIZATION TO DEPLOY TO DMPTOOL-STG
+  gem "capistrano"
+  gem "capistrano-rails"
 end
