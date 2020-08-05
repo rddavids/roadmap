@@ -8,7 +8,7 @@
   message = @data['message'].to_s
 %>
 
-<% FastGettext.with_locale FastGettext.default_locale do %>
+<% I18n.with_locale I18n.default_locale do %>
   <p>
     <%= raw _('Hello %{recipient_name},') %{ recipient_name: recipient_name } %>
   </p>

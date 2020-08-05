@@ -12,7 +12,7 @@ class UserMailer < ActionMailer::Base
 
   def welcome_notification(user)
     @user = user
-    FastGettext.with_locale FastGettext.default_locale do
+    I18n.with_locale I18n.default_locale do
       mail(to: @user.email,
            subject: _("Welcome to %{tool_name}") % {
              tool_name: ApplicationService.application_name
@@ -24,7 +24,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     @answer = answer
     @data = data
-    FastGettext.with_locale FastGettext.default_locale do
+    I18n.with_locale I18n.default_locale do
       mail(to: data["email"],
            subject: data["subject"])
     end
@@ -38,7 +38,7 @@ class UserMailer < ActionMailer::Base
                    "with you") % {
                      tool_name: ApplicationService.application_name
                    }
-    FastGettext.with_locale FastGettext.default_locale do
+    I18n.with_locale I18n.default_locale do
       mail(to: @role.user.email, subject: subject)
     end
   end
@@ -48,7 +48,7 @@ class UserMailer < ActionMailer::Base
 
     @role = role
     @user = user
-    FastGettext.with_locale FastGettext.default_locale do
+    I18n.with_locale I18n.default_locale do
       mail(to: @role.user.email,
            subject: _("Changed permissions on a Data Management Plan in %{tool_name}") % {
              tool_name: ApplicationService.application_name
@@ -62,7 +62,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     @plan = plan
     @current_user = current_user
-    FastGettext.with_locale FastGettext.default_locale do
+    I18n.with_locale I18n.default_locale do
       mail(to: @user.email,
            subject: (_("Permissions removed on a DMP in %{tool_name}") % {
              tool_name: ApplicationService.application_name
@@ -77,7 +77,7 @@ class UserMailer < ActionMailer::Base
     @plan = plan
     @recipient = recipient
 
-    FastGettext.with_locale FastGettext.default_locale do
+    I18n.with_locale I18n.default_locale do
       mail(to: recipient.email,
            subject: _("%{application_name}: %{user_name} requested feedback on a plan") % {
              application_name: ApplicationService.application_name, user_name: @user.name(false)
@@ -92,7 +92,7 @@ class UserMailer < ActionMailer::Base
     @user      = recipient
     @plan      = plan
     @phase     = plan.phases.first
-    FastGettext.with_locale FastGettext.default_locale do
+    I18n.with_locale I18n.default_locale do
       sender = Rails.configuration.x.organisation.do_not_reply_email ||
                Rails.configuration.x.organisation.email
       mail(
@@ -118,7 +118,7 @@ class UserMailer < ActionMailer::Base
 
     @body = feedback_constant_to_text(message, user, plan, org)
 
-    FastGettext.with_locale FastGettext.default_locale do
+    I18n.with_locale I18n.default_locale do
       mail(to: recipient.email,
            subject: feedback_constant_to_text(subject, user, plan, org))
     end
@@ -129,7 +129,7 @@ class UserMailer < ActionMailer::Base
 
     @user = user
     @plan = plan
-    FastGettext.with_locale FastGettext.default_locale do
+    I18n.with_locale I18n.default_locale do
       mail(to: @user.email,
            subject: _("DMP Visibility Changed: %{plan_title}") % { plan_title: @plan.title })
     end
@@ -147,7 +147,7 @@ class UserMailer < ActionMailer::Base
     @commenter = commenter
     @plan = plan
     @answer = answer
-    FastGettext.with_locale FastGettext.default_locale do
+    I18n.with_locale I18n.default_locale do
       mail(to: plan.owner.email, subject:
         _("%{tool_name}: A new comment was added to %{plan_title}") % {
           tool_name: ApplicationService.application_name, plan_title: plan.title
@@ -159,7 +159,7 @@ class UserMailer < ActionMailer::Base
     return unless user.active?
 
     @user = user
-    FastGettext.with_locale FastGettext.default_locale do
+    I18n.with_locale I18n.default_locale do
       mail(to: user.email, subject:
         _("Administrator privileges granted in %{tool_name}") % {
           tool_name: ApplicationService.application_name
@@ -171,7 +171,7 @@ class UserMailer < ActionMailer::Base
     return unless @api_client.contact_email.present?
 
     @api_client = api_client
-    FastGettext.with_locale FastGettext.default_locale do
+    I18n.with_locale I18n.default_locale do
       mail(to: @api_client.contact_email,
            subject: _("%{tool_name} API changes") % {
              tool_name: ApplicationService.application_name
